@@ -1,0 +1,13 @@
+__pycache__/
+venv/
+.idea/
+.env
+
+models/__pycache__/
+parser/__pycache__/
+
+tgbot/filters/__pycache__/
+tgbot/headers/__pycache__/
+tgbot/keyboard/__pycache__/
+tgbot/states/__pycache__/
+

@@ -1,0 +1,4 @@
+aiogram
+gino
+environs
+pyrogram
