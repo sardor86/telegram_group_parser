@@ -80,4 +80,37 @@ class Groups(Base):
         return True
 
 
+class Words(Base):
+    class WordsTable(gino_db.Model):
+        __tablename__ = 'words'
+
+        id = gino_db.Column(gino_db.Integer(), primary_key=True)
+        words = gino_db.Column(gino_db.String(), unique=True, nullable=False)
+
+        def __str__(self) -> str:
+            return f'<Group {self.user_id}>'
+
+        def __repr__(self) -> str:
+            return f'<Group {self.user_id}>'
+
+    async def check_in_db(self, word: str) -> bool:
+        return not await self.WordsTable.query.where(self.WordsTable.words == word).gino.firts() is None
+
+    async def add_word(self, word: str) -> bool:
+        if await self.check_in_db(word):
+            return False
+        word = self.WordsTable(words=word)
+
+        await word.create()
+        return True
+
+    async def get_all_words(self) -> list:
+        return await self.WordsTable.query.gino.all()
+
+    async def delete_word(self, word: str) -> bool:
+        if not self.check_in_db(word):
+            return False
+        word = await self.WordsTable.query.where(self.WordsTable.words == word).gino.firts()
+        await word.delete()
+        return True
 
