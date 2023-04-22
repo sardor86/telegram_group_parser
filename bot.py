@@ -2,13 +2,14 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import asyncio
 
-from config import load_config, path
+from config import load_tg_config, path, set_gino
 from tgbot.filters import register_all_filters
 from tgbot.headers import register_all_handlers
 
 
 async def main():
-    config = await load_config(str(path / '.env'))
+    config = load_tg_config(str(path / '.env'))
+    await set_gino(config.db)
 
     storage = MemoryStorage()
     bot = Bot(token=config.tgbot.token, parse_mode='HTML')

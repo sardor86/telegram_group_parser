@@ -32,9 +32,14 @@ class Parser:
 
 
 @dataclass
-class Config:
+class TgConfig:
     db: DataBase
     tgbot: TGBot
+
+
+@dataclass
+class ParserConfig:
+    db: DataBase
     parser: Parser
 
 
@@ -45,11 +50,11 @@ async def set_gino(data_base: DataBase) -> None:
                            f'{data_base.name}')
 
 
-async def load_config(env_path: str) -> Config:
+def load_tg_config(env_path: str) -> TgConfig:
     env = Env()
     env.read_env(env_path)
 
-    config = Config(
+    return TgConfig(
                     db=DataBase(
                                 host=env.str('DB_HOST'),
                                 port=env.int('DB_PORT'),
@@ -63,13 +68,25 @@ async def load_config(env_path: str) -> Config:
                     tgbot=TGBot(
                                 token=env.str('BOT_TOKEN'),
                                 admin=env.int('ADMIN_ID')
+                                ))
+
+
+def load_parser_config(env_path: str) -> ParserConfig:
+    env = Env()
+    env.read_env(env_path)
+
+    return ParserConfig(
+                    db=DataBase(
+                                host=env.str('DB_HOST'),
+                                port=env.int('DB_PORT'),
+
+                                user=env.str('DB_USER'),
+                                password=env.str('DB_PASSWORD'),
+
+                                name=env.str('DB_NAME')
                                 ),
 
                     parser=Parser(
-                                  api_id=env.int('API_ID'),
-                                  api_hash=env.str('API_HASH'),
-                                 )
-                    )
-
-    await set_gino(config.db)
-    return config
+                                api_id=env.int('API_ID'),
+                                api_hash=env.str('API_HASH')
+                                ))
