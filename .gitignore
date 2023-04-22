@@ -4,10 +4,12 @@ venv/
 .env
 
 models/__pycache__/
+
 parser/__pycache__/
+parser/headers/__pycache__/
+parser/my_account.session
 
 tgbot/filters/__pycache__/
 tgbot/headers/__pycache__/
 tgbot/keyboard/__pycache__/
 tgbot/states/__pycache__/
-
