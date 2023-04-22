@@ -59,7 +59,7 @@ class Groups(Base):
             return f'<Group {self.user_id}>'
 
     async def check_in_db(self, group_link: str) -> bool:
-        return not await self.GroupsTable.query.where(self.GroupsTable.group_link == group_link).gino.firts() is None
+        return not await self.GroupsTable.query.where(self.GroupsTable.group_link == group_link).gino.first() is None
 
     async def add_group(self, group_link: str) -> bool:
         if await self.check_in_db(group_link):
@@ -73,9 +73,9 @@ class Groups(Base):
         return await self.GroupsTable.query.gino.all()
 
     async def delete_group(self, group_link: str) -> bool:
-        if not self.check_in_db(group_link):
+        if not await self.check_in_db(group_link):
             return False
-        group = await self.GroupsTable.query.where(self.GroupsTable.group_link == group_link).gino.firts()
+        group = await self.GroupsTable.query.where(self.GroupsTable.group_link == group_link).gino.first()
         await group.delete()
         return True
 
