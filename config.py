@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from environs import Env
 from gino import Gino
+from pathlib import Path
+
+path = Path(__file__).parent
 
 gino_db = Gino()
 
@@ -42,9 +45,9 @@ async def set_gino(data_base: DataBase) -> None:
                            f'{data_base.name}')
 
 
-async def load_config(path: str) -> Config:
+async def load_config(env_path: str) -> Config:
     env = Env()
-    env.read_env(path)
+    env.read_env(env_path)
 
     config = Config(
                     db=DataBase(
