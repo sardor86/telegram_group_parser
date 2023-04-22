@@ -1,1 +1,3 @@
-from .states import AddGroup, DeleteGroup
+from .states import AddGroup, DeleteGroup,\
+                    AddWords, DeleteWords
+

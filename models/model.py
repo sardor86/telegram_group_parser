@@ -94,7 +94,7 @@ class Words(Base):
             return f'<Group {self.user_id}>'
 
     async def check_in_db(self, word: str) -> bool:
-        return not await self.WordsTable.query.where(self.WordsTable.words == word).gino.firts() is None
+        return not await self.WordsTable.query.where(self.WordsTable.words == word).gino.first() is None
 
     async def add_word(self, word: str) -> bool:
         if await self.check_in_db(word):
@@ -108,9 +108,9 @@ class Words(Base):
         return await self.WordsTable.query.gino.all()
 
     async def delete_word(self, word: str) -> bool:
-        if not self.check_in_db(word):
+        if not await self.check_in_db(word):
             return False
-        word = await self.WordsTable.query.where(self.WordsTable.words == word).gino.firts()
+        word = await self.WordsTable.query.where(self.WordsTable.words == word).gino.first()
         await word.delete()
         return True
 

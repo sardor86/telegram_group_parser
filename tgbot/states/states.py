@@ -7,3 +7,11 @@ class AddGroup(StatesGroup):
 
 class DeleteGroup(StatesGroup):
     get_group = State()
+
+
+class AddWords(StatesGroup):
+    get_word = State()
+
+
+class DeleteWords(StatesGroup):
+    get_word = State()
