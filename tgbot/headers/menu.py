@@ -11,5 +11,4 @@ async def menu(message: Message) -> None:
 
 def register_menu_handler(dp: Dispatcher):
     dp.register_message_handler(menu,
-                                commands=['start'],
-                                is_admin=True)
+                                commands=['start'])
