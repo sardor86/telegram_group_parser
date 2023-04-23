@@ -9,10 +9,15 @@ from models import Groups
 async def start_add_group(callback: CallbackQuery) -> None:
     await AddGroup.get_group.set()
     await callback.message.edit_text('Отправте сылку на группу')
+    await callback.bot.send_message(callback.from_user.id, 'Группа должна быть публичной')
 
 
 async def get_group_link(message: Message, state: FSMContext) -> None:
-    if await Groups().add_group(message.text):
+    if '@' in message.text:
+        group_link = message.text.split('@')[1:]
+    else:
+        group_link = message.text.split('/')[-1]
+    if await Groups().add_group(group_link):
         await message.reply('Группа добавлена')
     else:
         await message.reply('Группа существует в базе')

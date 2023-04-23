@@ -5,11 +5,13 @@ venv/
 
 models/__pycache__/
 
-parser/__pycache__/
-parser/headers/__pycache__/
-my_account.session
+tgparser/__pycache__/
+tgparser/headers/__pycache__/
+telegram_group_parses.session
+telegram_group_parses.session-journal
 
 tgbot/filters/__pycache__/
 tgbot/headers/__pycache__/
 tgbot/keyboard/__pycache__/
 tgbot/states/__pycache__/
+tgbot/data.xlsx

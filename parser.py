@@ -1,22 +1,31 @@
 import asyncio
+
 from pyrogram import Client
 
-from parser.headers import register_all_handler
-from config import load_parser_config, path
+from config import load_parser_config, path, set_gino
+from tgparser.headers import register_all_handler
 
 config = load_parser_config(str(path / '.env'))
 
-app = Client("my_account", config.parser.api_id, config.parser.api_hash)
+
+async def set_db():
+    await set_gino(config.db)
 
 
-async def run_parser():
-    async def main():
-        async with app:
-            register_all_handler(app)
+def main() -> None:
+    client = Client(name='telegram_group_parses', api_id=config.parser.api_id, api_hash=config.parser.api_hash)
 
-    app.run(main())
+    register_all_handler(client)
+
+    client.run()
+
+
+def start_parser():
+    loop = asyncio.get_event_loop()
+    task1 = loop.create_task(set_db())
+    loop.run_until_complete(asyncio.wait([task1]))
+    main()
 
 
 if __name__ == '__main__':
-    asyncio.run(run_parser())
-
+    start_parser()

@@ -19,14 +19,14 @@ class Users(Base):
 
     async def check_user(self, user_id: int, group_link: str) -> bool:
         return not await self.UsersTable.query.where(self.UsersTable.user_id == user_id and
-                                                     self.UsersTable.group == group_link).gino.firsts() is None
+                                                     self.UsersTable.group == group_link).gino.first() is None
 
     async def add_user(self,
                        user_id: int,
                        username: str,
                        group) -> bool:
 
-        if self.check_user(user_id, group) or not Groups().check_in_db(group):
+        if await self.check_user(user_id, group):
             return False
 
         user = self.UsersTable(
@@ -76,6 +76,7 @@ class Groups(Base):
         if not await self.check_in_db(group_link):
             return False
         group = await self.GroupsTable.query.where(self.GroupsTable.group_link == group_link).gino.first()
+        await Users().delete_group(group_link)
         await group.delete()
         return True
 

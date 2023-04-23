@@ -9,6 +9,7 @@ from tgbot.headers.group.get_all_group import register_get_all_group
 from tgbot.headers.words.add_words import register_add_word_handler
 from tgbot.headers.words.delete_word import register_delete_word_handler
 from tgbot.headers.words.get_all_words import register_get_all_words
+from tgbot.headers.get_all_user import register_get_all_user_handler
 
 
 def register_all_handlers(dp: Dispatcher):
@@ -21,3 +22,5 @@ def register_all_handlers(dp: Dispatcher):
     register_add_word_handler(dp)
     register_delete_word_handler(dp)
     register_get_all_words(dp)
+
+    register_get_all_user_handler(dp)

@@ -7,6 +7,7 @@ class Base:
 
     async def __aexit__(self, *excinfo):
         await self.db.pop_bind()
+        
 
 
 async def create_all_db():
