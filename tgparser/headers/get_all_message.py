@@ -12,7 +12,6 @@ async def get_all_message_group(client, message) -> None:
     for chat in await Groups().get_all_group():
         chat = await client.get_chat(chat.group_link)
         if str(chat.type) == 'ChatType.CHANNEL':
-            print(chat)
             chat_id = chat.linked_chat.id
         else:
             chat_id = chat.id

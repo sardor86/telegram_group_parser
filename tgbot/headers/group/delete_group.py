@@ -12,7 +12,12 @@ async def start_delete_group(callback: CallbackQuery) -> None:
 
 
 async def get_group_link(message: Message, state: FSMContext) -> None:
-    if await Groups().delete_group(message.text):
+    if '@' in message.text:
+        group_link = message.text.split('@')[1:]
+    else:
+        group_link = message.text.split('/')[-1]
+
+    if await Groups().delete_group(group_link):
         await message.reply('Группа удалена')
     else:
         await message.reply('Группа не существует в базе')
