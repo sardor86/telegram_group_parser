@@ -5,15 +5,15 @@ from pyrogram import Client
 from config import load_parser_config, path, set_gino
 from tgparser.headers import register_all_handler
 
-config = load_parser_config(str(path / '.env'))
+CONFIG = load_parser_config(str(path / '.env'))
 
 
 async def set_db():
-    await set_gino(config.db)
+    await set_gino(CONFIG.db)
 
 
 def main() -> None:
-    client = Client(name='telegram_group_parses', api_id=config.parser.api_id, api_hash=config.parser.api_hash)
+    client = Client(name='telegram_group_parses', api_id=CONFIG.parser.api_id, api_hash=CONFIG.parser.api_hash)
 
     register_all_handler(client)
 
