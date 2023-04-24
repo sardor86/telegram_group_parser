@@ -13,7 +13,7 @@ async def set_db():
 
 
 def main() -> None:
-    client = Client(name='telegram_group_parses', api_id=CONFIG.parser.api_id, api_hash=CONFIG.parser.api_hash)
+    client = Client(name='telegram_group_parses', api_id=CONFIG.parser.api_id, api_hash=CONFIG.parser.api_hash, bot_token='6053745401:AAHkZw2KCpnrdHrGEt0IG6xrlHlWbmXuX9k')
 
     register_all_handler(client)
 

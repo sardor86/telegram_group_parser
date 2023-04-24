@@ -9,6 +9,9 @@ async def get_all_words(callback: CallbackQuery) -> None:
     for word in await Words().get_all_words():
         message += word.words + '\n'
 
+    if message == '':
+        message = 'нету'
+
     await callback.message.reply(message)
 
 

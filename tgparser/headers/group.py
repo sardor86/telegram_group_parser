@@ -6,6 +6,7 @@ from models import Groups, Words, Users
 
 
 async def check_group(client, message) -> None:
+
     chat = await client.get_chat(message.chat.id)
     if chat.username is None:
         return

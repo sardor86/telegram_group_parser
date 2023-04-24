@@ -9,6 +9,9 @@ async def get_all_group(callback: CallbackQuery) -> None:
     for group in await Groups().get_all_group():
         message += group.group_link + '\n'
 
+    if message == '':
+        message = 'нету'
+
     await callback.message.reply(message)
 
 
