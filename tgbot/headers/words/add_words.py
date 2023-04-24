@@ -8,7 +8,7 @@ from models import Words
 
 async def start_add_word(callback: CallbackQuery) -> None:
     await AddWords.get_word.set()
-    await callback.message.edit_text('Отпарвте ключевое слово')
+    await callback.message.reply('Отпарвте ключевое слово')
 
 
 async def get_word(message: Message, state: FSMContext) -> None:

@@ -9,7 +9,7 @@ async def get_all_words(callback: CallbackQuery) -> None:
     for word in await Words().get_all_words():
         message += word.words + '\n'
 
-    await callback.message.edit_text(message)
+    await callback.message.reply(message)
 
 
 def register_get_all_words(dp: Dispatcher) -> None:

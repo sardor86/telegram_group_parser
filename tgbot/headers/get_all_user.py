@@ -14,7 +14,6 @@ async def get_all_user(callback: CallbackQuery) -> None:
         ws.cell(row=1, column=column_sequence * 2 + 1).value = group.group_link
         row = 2
         for user in await Users().get_all_user(group.group_link):
-            print(user.user_id)
             ws.cell(row=row, column=column_sequence*2+1).value = user.user_id
             ws.cell(row=row, column=column_sequence*2+2).value = user.username
             row += 1

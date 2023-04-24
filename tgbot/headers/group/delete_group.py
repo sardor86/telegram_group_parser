@@ -8,7 +8,7 @@ from models import Groups
 
 async def start_delete_group(callback: CallbackQuery) -> None:
     await DeleteGroup.get_group.set()
-    await callback.message.edit_text('Отправте сылку на группу')
+    await callback.message.reply('Отправте сылку на группу')
 
 
 async def get_group_link(message: Message, state: FSMContext) -> None:

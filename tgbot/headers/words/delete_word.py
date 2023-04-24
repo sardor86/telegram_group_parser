@@ -8,7 +8,7 @@ from models import Words
 
 async def start_delete_word(callback: CallbackQuery) -> None:
     await DeleteWords.get_word.set()
-    await callback.message.edit_text('Отправте ключево слово')
+    await callback.message.reply('Отправте ключево слово')
 
 
 async def get_word(message: Message, state: FSMContext) -> None:

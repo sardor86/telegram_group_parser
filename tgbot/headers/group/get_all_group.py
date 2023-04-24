@@ -9,7 +9,7 @@ async def get_all_group(callback: CallbackQuery) -> None:
     for group in await Groups().get_all_group():
         message += group.group_link + '\n'
 
-    await callback.message.edit_text(message)
+    await callback.message.reply(message)
 
 
 def register_get_all_group(dp: Dispatcher) -> None:

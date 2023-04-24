@@ -8,7 +8,7 @@ from models import Groups
 
 async def start_add_group(callback: CallbackQuery) -> None:
     await AddGroup.get_group.set()
-    await callback.message.edit_text('Отправте сылку на группу/канал')
+    await callback.message.reply('Отправте сылку на группу/канал')
     await callback.bot.send_message(callback.from_user.id, 'Группа должна быть публичной')
 
 

@@ -16,9 +16,14 @@ async def get_all_message_group(client, message) -> None:
         else:
             chat_id = chat.id
 
-        async for history_message in client.get_chat_history(chat_id):
-            if await Words().check_in_db(history_message.text):
-                await Users().add_user(history_message.from_user.id, history_message.from_user.username, chat.username)
+        for word in await Words().get_all_words():
+            async for history_message in client.search_messages(chat_id, query=word.words, limit=5000):
+                try:
+                    await Users().add_user(history_message.from_user.id, history_message.from_user.username, chat.username)
+                except AttributeError:
+                    pass
+
+    await message.reply('Парсинг старых сообщений закончен')
 
 
 def register_get_all_message_group_handler(app: Client) -> None:
