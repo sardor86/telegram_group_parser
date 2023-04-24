@@ -12,9 +12,14 @@ async def check_group(client, message) -> None:
         return
 
     if await Groups().check_in_db(chat.username):
-        for word in message.text.split(' '):
+        for word in str(message.text).split(' '):
             if await Words().check_in_db(word):
-                await Users().add_user(message.from_user.id, message.from_user.username, chat.username)
+                if await Users().add_user(message.from_user.id, message.from_user.username, chat.username):
+                    await client.send_message('me',
+                                              f'{message.from_user.id}  |  '
+                                              f'{message.from_user.username}  |  '
+                                              f'{chat.username}  |  '
+                                              f'{message.date}')
 
 
 def register_check_group_handler(app: Client) -> None:
